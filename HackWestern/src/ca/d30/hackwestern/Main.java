@@ -140,7 +140,7 @@ public class Main extends Canvas implements Runnable {
 		} else {
 			world.tick();
 
-			while (numOfGolems <= 2) {
+			while (numOfGolems <= 50) {
 				boolean noSolve = true;
 				for (int y = 0; y < world.mapHeight; y++) {
 					for (int x = 0; x < world.mapWidth; x++) {
@@ -158,7 +158,7 @@ public class Main extends Canvas implements Runnable {
 				}
 			}
 
-			while (numOfSlimes <= 2) {
+			while (numOfSlimes <= 150) {
 				boolean noSolve = true;
 				for (int y = 0; y < world.mapHeight; y++) {
 					for (int x = 0; x < world.mapWidth; x++) {

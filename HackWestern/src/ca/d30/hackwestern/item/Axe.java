@@ -69,14 +69,36 @@ public class Axe extends Item {
 						
 						w.entities.add(new Log((tX*16) + x, (tY*16) + y));
 					}
+					numOfDrops = 0;
 					
-					numOfDrops = rand.nextInt(2);
+					if(rand.nextInt(4) == 1) numOfDrops = rand.nextInt(2);
 					for(int i = 0; i < numOfDrops; i++) {
 						int x = rand.nextInt(16);
 						int y = rand.nextInt(16);
 						
 						w.entities.add(new Apple((tX*16) + x, (tY*16) + y));
 					}
+					
+					w.setID(tX, tY, Tile.GRASS.id);
+				//	p.inv.addItem(new Log());
+				}
+			}
+		} else if(t.id == Tile.LOG.id) {
+			if(tX != curX || tY != curY) {
+				curX = tX;
+				curY = tY;
+				health = 10;
+			} else {
+				int damage = rand.nextInt(2)+1;
+				
+				health -= damage;
+				p.numbers.add(new Num(""+damage, tX*16 + 7, tY*16 + 7, p, false));
+				
+				if(health <= 0) {
+					int x = rand.nextInt(16);
+					int y = rand.nextInt(16);
+						
+					w.entities.add(new Log((tX*16) + x, (tY*16) + y));
 					
 					w.setID(tX, tY, Tile.GRASS.id);
 				//	p.inv.addItem(new Log());

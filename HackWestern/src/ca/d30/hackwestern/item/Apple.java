@@ -33,7 +33,7 @@ public class Apple extends Item {
 	}
 	
 	public boolean equip(){
-		if(Main.instance.player.health < 16) Main.instance.player.health += 2;
+		if(Main.instance.player.health < 16) Main.instance.player.health += 4;
 		if(Main.instance.player.health > 16) Main.instance.player.health = 16;
 		return false;
 	}

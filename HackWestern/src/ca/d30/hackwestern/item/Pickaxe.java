@@ -14,24 +14,25 @@ public class Pickaxe extends Item {
 		super("Pick", "Crush rocks like toothpicks.", 2, item.getSprite(3, 1));
 		this.inInventory = true;
 	}
-	
+
 	public boolean equip() {
 		return true;
 	}
-	
+
 	Random rand = new Random();
 	public int curX = -1, curY = -1, health;
+
 	public void use(Mob m) {
-		Player p = (Player)m;
-		
-		int tX = (int)Math.floor(p.x/16);
-		int tY = (int)Math.floor(p.y/16);
-		
+		Player p = (Player) m;
+
+		int tX = (int) Math.floor(p.x / 16);
+		int tY = (int) Math.floor(p.y / 16);
+
 		Tile t = null;
 		World w = Main.instance.world;
-		
-		switch(p.dir) {
-		case 0: 
+
+		switch (p.dir) {
+		case 0:
 			t = Tile.tiles.get(w.getID(tX, tY + 1));
 			tY += 1;
 			break;
@@ -48,29 +49,60 @@ public class Pickaxe extends Item {
 			tX -= 1;
 			break;
 		}
-		
-		if(t.id == Tile.ROCK.id) {
-			if(tX != curX || tY != curY) {
+
+		if (t.id == Tile.ROCK.id) {
+			if (tX != curX || tY != curY) {
 				curX = tX;
 				curY = tY;
 				health = 20;
 			} else {
-				int damage = rand.nextInt(2)+2;
-				
+				int damage = rand.nextInt(2) + 2;
+
 				health -= damage;
-				p.numbers.add(new Num("" + damage, tX*16 + 7, tY*16 + 7, p, false));
-				
-				if(health <= 0) {
-					int numOfDrops = rand.nextInt(3)+1;
-					for(int i = 0; i < numOfDrops; i++) {
+				p.numbers.add(new Num("" + damage, tX * 16 + 7, tY * 16 + 7, p,
+						false));
+
+				if (health <= 0) {
+					int numOfDrops = rand.nextInt(3) + 1;
+					for (int i = 0; i < numOfDrops; i++) {
 						int x = rand.nextInt(16);
 						int y = rand.nextInt(16);
-						
-						w.entities.add(new Stone((tX*16) + x, (tY*16) + y));
+
+						w.entities.add(new Stone((tX * 16) + x, (tY * 16) + y));
 					}
 					
+					numOfDrops = rand.nextInt(2);
+					for (int i = 0; i < numOfDrops; i++) {
+						int x = rand.nextInt(16);
+						int y = rand.nextInt(16);
+
+						w.entities.add(new Ore((tX * 16) + x, (tY * 16) + y));
+					}
+
 					w.setID(tX, tY, Tile.GRASS.id);
-				//	p.inv.addItem(new Log());
+					// p.inv.addItem(new Log());
+				}
+			}
+		} else if (t.id == Tile.STONE.id) {
+			if (tX != curX || tY != curY) {
+				curX = tX;
+				curY = tY;
+				health = 20;
+			} else {
+				int damage = rand.nextInt(2) + 2;
+
+				health -= damage;
+				p.numbers.add(new Num("" + damage, tX * 16 + 7, tY * 16 + 7, p,
+						false));
+
+				if (health <= 0) {
+					int x = rand.nextInt(16);
+					int y = rand.nextInt(16);
+
+					w.entities.add(new Stone((tX * 16) + x, (tY * 16) + y));
+
+					w.setID(tX, tY, Tile.GRASS.id);
+					// p.inv.addItem(new Log());
 				}
 			}
 		}

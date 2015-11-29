@@ -156,8 +156,8 @@ public class WorldGen {
 
 	public static void main(String[] args) {
 		while (true) {
-			int w = 256;
-			int h = 256;
+			int w = 128;
+			int h = 128;
 			int[] map = WorldGen.createAndValidateTopMap(w, h);
 			BufferedImage img = new BufferedImage(w, h,
 					BufferedImage.TYPE_INT_RGB);
